@@ -1,0 +1,30 @@
+wordsize = 16
+number_of_rounds = 22
+alpha = 7
+beta = 2
+
+//kruzna funkcija
+def f(x, y, k):
+    x = ((x >> alpha) + y) ^ k
+    y =(y << beta) ^ x
+    
+def key_schedule (l2, l1, l0, k0):
+    l = [None for i in range (number_of_rounds + 3)]
+    
+    round_keys[0] = k0
+    l[0:3]=[l0,l1,l2]
+    
+    for i in range (number_of_rounds-1):
+        l[i+3], round_keys[i+1] = f(l[i], round_keys[i], i)
+        
+def encryption (x0, y0):
+    rounds[0] = f(x0, y0, round_keys[0])
+    
+    for i in range (1, number_of_rounds):
+        x, y = rounds[i-1]
+        round_output = f(x,y, round_keys[i])
+    
+        if i < number_of_rounds -1:
+            rounds[i]= round_output
+        else:
+            return round_output
