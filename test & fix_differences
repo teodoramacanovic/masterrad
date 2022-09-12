@@ -1,0 +1,11 @@
+def test():
+    key = (0x1918, 0x1110, 0x0908, 0x0100)
+    plaintext = (0x6574, 0x694c)
+    ciphertext = (0xa868, 0x42f2)
+    
+    key_schedule(*key)
+    assert ciphertext == encryption(*plaintext)
+    
+def fix_differences():
+    for i in range(number_of_rounds):
+        round_keys.fix.difference(i,0)
